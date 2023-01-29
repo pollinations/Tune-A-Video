@@ -5,18 +5,18 @@ train_data:
   # video_path: "data/4seconds_of_scott.mov"
   # prompt: "driving mountain highway"
   n_sample_frames: 8
-  width: 512
-  height: 512
+  #width: 512
+  #height: 512
   sample_start_idx: 0
-  sample_frame_rate: 1
+  # sample_frame_rate: 1
 
 validation_data:
   # prompts:
   #   - "driving through tectonic shifts and sakura trees. vibrant colorful surrealism style by jodorowsky"
   #   - "driving through fractal vector fields"
-  video_length: 4
-  width: 512
-  height: 512
+  #video_length: 4
+  #width: 512
+  #height: 512
   num_inference_steps: 50
   guidance_scale: 7.5
 
