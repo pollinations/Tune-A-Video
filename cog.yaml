@@ -43,12 +43,14 @@ build:
     # - pip install triton==2.0.0.dev20221120
     # - pip install pyre-extensions==0.0.23
     # - pip install bitsandbytes==0.35.4 decord==0.6.0 accelerate tensorboard modelcards einops imageio ftfy
-    - apt update && apt install -y zip
-    - wget https://f004.backblazeb2.com/file/naipublicbucketxyz/xformers.zip && unzip xformers.zip
-    - cd xformers && python3 setup.py develop
-    - pip install triton==2.0.0.dev20221120
+    # - apt update && apt install -y zip
+    # - wget https://f004.backblazeb2.com/file/naipublicbucketxyz/xformers.zip && unzip xformers.zip
+    # - cd xformers && python3 setup.py develop
+    # - pip install triton==2.0.0.dev20221120
     - pip install decord
     - pip install cutlass
+    - git clone https://github.com/facebookresearch/xformers.git
+    - cd xformers && git submodule update --init --recursive && pip install -r requirements.txt && pip install -e .
 
 
 # predict.py defines how predictions are run on your model

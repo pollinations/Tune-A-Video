@@ -22,10 +22,14 @@ class Predictor(BasePredictor):
         video_prompt: str = Input(
             description='prompts describing the original video',
             default='a man surfing'),
+        steps: int = Input(
+            description='number of steps to train for',
+            default=300,
+        ),
         ) -> Path:
         print("predict")
         os.system("rm -rf /outputs")
-        os.system(f'accelerate launch train_tuneavideo.py --config="configs/replicate.yaml" --video-path {str(video)} --target-prompts "{target_prompts}" --video-prompt "{video_prompt}" --output-dir "/outputs"')
+        os.system(f'accelerate launch train_tuneavideo.py --config="configs/replicate.yaml" --video-path {str(video)} --target-prompts "{target_prompts}" --video-prompt "{video_prompt}" --max-train-steps {steps}  --output-dir "/outputs"')
         os.system("ls -l /outputs")
 
         # find last file in path with .gif extension

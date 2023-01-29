@@ -351,10 +351,14 @@ if __name__ == "__main__":
     parser.add_argument("--video-prompt", type=str, default="a man is surfing")
     parser.add_argument("--video-path", type=str, default="video.mp4")
     parser.add_argument("--output-dir", type=str, default="output")
+    parser.add_argument("--max-train-steps", type=int, default=300)
     args = parser.parse_args()
+    
     config = OmegaConf.load(args.config)
     config["train_data"]["prompt"] = args.video_prompt
     config["validation_data"]["prompts"] = "\n".split(args.target_prompts)
     config["train_data"]["video_path"] = args.video_path
     config["output_dir"] = args.output_dir
+    config["max_train_steps"] = args.max_train_steps
+
     main(**config)
