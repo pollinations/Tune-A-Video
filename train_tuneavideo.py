@@ -346,7 +346,13 @@ def main(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default="./configs/tuneavideo.yaml")
+    parser.add_argument("--config", type=str, default="./configs/replicate.yaml")
+    parser.add_argument("--target-prompts", type=str, default="a panda surfing")
+    parser.add_argument("--video-prompt", type=str, default="a man is surfing")
+    parser.add_argument("--video-path", type=str, default="video.mp4")
     args = parser.parse_args()
-
-    main(**OmegaConf.load(args.config))
+    config = OmegaConf.load(args.config)
+    config["train_data"]["prompts"] = args.video_prompt
+    config["validation_data"]["prompts"] = args.target_prompts
+    config["train_data"]["video_path"] = args.video_path
+    main(**config)

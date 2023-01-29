@@ -1,22 +1,22 @@
 pretrained_model_path: "./checkpoints/stable-diffusion-v1-4"
-output_dir: "./outputs/4seconds_scott"
+output_dir: "./outputs/"
 
 train_data:
-  video_path: "data/4seconds_of_scott.mov"
-  prompt: "driving mountain highway"
+  # video_path: "data/4seconds_of_scott.mov"
+  # prompt: "driving mountain highway"
   n_sample_frames: 8
-  width: 256
-  height: 256
+  width: 512
+  height: 512
   sample_start_idx: 0
   sample_frame_rate: 5
 
 validation_data:
-  prompts:
-    - "driving through tectonic shifts and sakura trees. vibrant colorful surrealism style by jodorowsky"
-    - "driving through fractal vector fields"
-  video_length: 4
-  width: 256
-  height: 256
+  # prompts:
+  #   - "driving through tectonic shifts and sakura trees. vibrant colorful surrealism style by jodorowsky"
+  #   - "driving through fractal vector fields"
+  video_length: 8
+  width: 512
+  height: 512
   num_inference_steps: 50
   guidance_scale: 7.5
 
@@ -32,6 +32,6 @@ trainable_modules:
 
 seed: 33
 mixed_precision: fp16
-use_8bit_adam: True
+use_8bit_adam: False
 gradient_checkpointing: True
-enable_xformers_memory_efficient_attention: False
+enable_xformers_memory_efficient_attention: True
