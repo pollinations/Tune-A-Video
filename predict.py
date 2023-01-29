@@ -45,6 +45,6 @@ class Predictor(BasePredictor):
         os.system("ls -l /outputs")
 
         # find last file in path with .gif extension
-        gif_path = max(glob('/outputs/*.gif'), key=os.path.getctime)
+        gif_path = max(glob('/outputs/samples/*.gif'), key=os.path.getctime)
         return Path(gif_path)
 
