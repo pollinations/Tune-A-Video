@@ -15,13 +15,13 @@ class Predictor(BasePredictor):
 
     def predict(self, 
         video: Path = Input(description="input video", default=None),
+        source_prompt: str = Input(
+            description='prompts describing the original video',
+            default='a man surfing'),
         target_prompts: str = Input(
             description='prompts to change the video to',
             default='a panda surfing\na cartoon sloth surfing',
         ),  
-        video_prompt: str = Input(
-            description='prompts describing the original video',
-            default='a man surfing'),
         steps: int = Input(
             description='number of steps to train for',
             default=300,
@@ -41,7 +41,7 @@ class Predictor(BasePredictor):
         ) -> Path:
         print("predict")
         os.system("rm -rf /outputs")
-        os.system(f'accelerate launch train_tuneavideo.py --config="configs/replicate.yaml" --video-path {str(video)} --target-prompts "{target_prompts}" --video-prompt "{video_prompt}" --max-train-steps {steps} --width {width} --height {height} --video-length {length} --output-dir "/outputs"')
+        os.system(f'accelerate launch train_tuneavideo.py --config="configs/replicate.yaml" --video-path {str(video)} --target-prompts "{target_prompts}" --video-prompt "{source_prompt}" --max-train-steps {steps} --width {width} --height {height} --video-length {length} --output-dir "/outputs"')
         os.system("ls -l /outputs")
 
         # find last file in path with .gif extension

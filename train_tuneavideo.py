@@ -360,7 +360,7 @@ if __name__ == "__main__":
     
     config = OmegaConf.load(args.config)
     config["train_data"]["prompt"] = args.video_prompt
-    config["validation_data"]["prompts"] = "\n".split(args.target_prompts)
+    config["validation_data"]["prompts"] = args.target_prompts.split("\n")
     config["validation_data"]["video_length"] = args.video_length
     config["validation_data"]["width"] = args.width
     config["validation_data"]["height"] = args.height
@@ -370,5 +370,8 @@ if __name__ == "__main__":
     config["train_data"]["sample_frame_rate"] = args.sample_frame_rate
     config["output_dir"] = args.output_dir
     config["max_train_steps"] = args.max_train_steps
+
+    print("running with config:")
+    print(OmegaConf.to_yaml(config))
 
     main(**config)
