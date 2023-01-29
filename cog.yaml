@@ -4,7 +4,7 @@
 build:
   # set to true if your model requires a GPU
   gpu: true
-  cuda: "11.3"
+  cuda: "11.7"
 
   # a list of ubuntu apt packages to install
   system_packages:
@@ -49,8 +49,10 @@ build:
     # - pip install triton==2.0.0.dev20221120
     - pip install decord
     - pip install cutlass
+    - pip install ninja
+    - apt update && apt install 
     - git clone https://github.com/facebookresearch/xformers.git
-    - cd xformers && git submodule update --init --recursive && pip install -r requirements.txt && pip install -e .
+    - export FORCE_CUDA="1" && export CUDA_VISIBLE_DEVICES=0 && export TORCH_CUDA_ARCH_LIST=8.6 && export CUDA_HOME=/usr/local/cuda-11.7 && cd xformers && git submodule update --init --recursive && pip install -r requirements.txt && pip install -e .
 
 
 # predict.py defines how predictions are run on your model
