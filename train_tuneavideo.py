@@ -94,8 +94,8 @@ def main(
 
     # Handle the output folder creation
     if accelerator.is_main_process:
-        now = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
-        output_dir = os.path.join(output_dir, now)
+        # now = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+        # output_dir = os.path.join(output_dir, now)
         os.makedirs(output_dir, exist_ok=True)
         OmegaConf.save(config, os.path.join(output_dir, 'config.yaml'))
 
@@ -350,9 +350,11 @@ if __name__ == "__main__":
     parser.add_argument("--target-prompts", type=str, default="a panda surfing")
     parser.add_argument("--video-prompt", type=str, default="a man is surfing")
     parser.add_argument("--video-path", type=str, default="video.mp4")
+    parser.add_argument("--output-dir", type=str, default="output")
     args = parser.parse_args()
     config = OmegaConf.load(args.config)
-    config["train_data"]["prompts"] = args.video_prompt
-    config["validation_data"]["prompts"] = args.target_prompts
+    config["train_data"]["prompt"] = args.video_prompt
+    config["validation_data"]["prompts"] = "\n".split(args.target_prompts)
     config["train_data"]["video_path"] = args.video_path
+    config["output_dir"] = args.output_dir
     main(**config)

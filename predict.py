@@ -2,7 +2,7 @@
 import os
 
 
-
+from glob import glob
 
 import numpy as np
 
@@ -22,10 +22,13 @@ class Predictor(BasePredictor):
         video_prompt: str = Input(
             description='prompts describing the original video',
             default='a man surfing'),
-        ) -> str:
+        ) -> Path:
         print("predict")
+        os.system("rm -rf /outputs")
+        os.system(f'accelerate launch train_tuneavideo.py --config="configs/replicate.yaml" --video-path {str(video)} --target-prompts "{target_prompts}" --video-prompt "{video_prompt}" --output-dir "/outputs"')
+        os.system("ls -l /outputs")
 
-        os.system(f'accelerate launch train_tuneavideo.py --config="configs/replicate.yaml" --video-path {str(video)} --target-prompts "{target_prompts}" --video-prompt "{video_prompt}"')
-        os.system("ls -l outputs")
-        return "hey"
+        # find last file in path with .gif extension
+        gif_path = max(glob('/outputs/*.gif'), key=os.path.getctime)
+        return Path(gif_path)
 
